@@ -37,6 +37,13 @@ func (t T[V]) ToPointer() *V {
 	return t.value
 }
 
+func (t T[V]) UnwrapOr(v V) V {
+	if t.value != nil {
+		return *t.value
+	}
+	return v
+}
+
 func Some[V any](v V) T[V] {
 	return T[V]{
 		value: &v,

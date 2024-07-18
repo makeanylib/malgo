@@ -57,3 +57,42 @@ func TestMaybe(t *testing.T) {
 		})
 	}
 }
+
+func TestMaybe_UnwrapOr(t *testing.T) {
+	type args struct {
+		v int
+	}
+	tests := []struct {
+		name   string
+		maybe  T[int]
+		args   args
+		assert func(t *testing.T, got int)
+	}{
+		{
+			name:  "should unwrap some value correctly",
+			maybe: Some[int](42),
+			args: args{
+				v: 10,
+			},
+			assert: func(t *testing.T, got int) {
+				assert.Equal(t, 42, got)
+			},
+		},
+		{
+			name:  "should unwrap none value correctly",
+			maybe: None[int](),
+			args: args{
+				v: 10,
+			},
+			assert: func(t *testing.T, got int) {
+				assert.Equal(t, 10, got)
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.assert(t, tt.maybe.UnwrapOr(tt.args.v))
+		})
+	}
+}
