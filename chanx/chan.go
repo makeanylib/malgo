@@ -1,4 +1,4 @@
-package channel
+package chanx
 
 type Chan[T any] struct {
 	closed bool

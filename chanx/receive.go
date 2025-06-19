@@ -1,4 +1,4 @@
-package channel
+package chanx
 
 func TryReceive[T any](ch <-chan T) (T, bool) {
 	select {
